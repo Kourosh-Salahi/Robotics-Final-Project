@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Robotics Final Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-alt: #141a2b;
+      --accent: #3ddc97;
+      --accent-soft: rgba(61, 220, 151, 0.15);
+      --text: #f5f7ff;
+      --text-muted: #a9b3d1;
+      --border: #262c3f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #202a44 0, #050814 45%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(to right, #050814cc, #050814f5);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .nav-links a {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--accent-soft);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 2rem;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      margin-top: 1.5rem;
+      border-radius: 1.5rem;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #232f52 0, #101627 40%, #050814 100%);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 3vw, 2.7rem);
+      margin: 0 0 0.5rem;
+    }
+
+    .hero p {
+      margin: 0 0 1.5rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: rgba(5, 8, 20, 0.85);
+      color: var(--accent);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--accent-soft);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-visual {
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      background: radial-gradient(circle at top, #1f2b4b 0, #050814 70%);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-visual-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-diagram {
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+    }
+
+    .hero-diagram-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .chip {
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+    }
+
+    .chip-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .arrow {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Sections */
+    section {
+      margin-top: 3rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top, #171f35 0, #050814 80%);
+      padding: 1rem 1.25rem 1.1rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0 0 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.25rem 0 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .meta-list li::before {
+      content: "•";
+      margin-right: 0.4rem;
+      color: var(--accent);
+    }
+
+    code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: #050814;
+      border-radius: 0.4rem;
+      padding: 0.3rem 0.45rem;
+      border: 1px solid var(--border);
+      display: inline-block;
+      margin: 0.2rem 0;
+    }
+
+    .layout-two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+      margin-top: 0.5rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 1.25rem 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 1.5rem 1.1rem;
+      }
+
+      .layout-two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">Robotics Final</div>
+      <nav class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#sensing">Sensing</a>
+        <a href="#planning">Planning</a>
+        <a href="#actuation">Actuation</a>
+        <a href="#cv">CV Color Detection</a>
+        <a href="#meta-quest">Meta Quest</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO / OVERVIEW -->
+    <section id="overview" class="hero">
+      <div>
+        <div class="hero-tagline">
+          <span>Autonomous Robotics Project</span>
+        </div>
+        <h1>Project Title: <span style="color: var(--accent);">[Your Robot Name]</span></h1>
+        <p>
+          This project demonstrates an end-to-end autonomous robotic system that
+          senses its environment, plans motion, and actuates a mobile platform.
+          Additional capabilities include real-time color-based computer vision
+          and integration with a Meta Quest headset for immersive monitoring and control.
+        </p>
+        <div class="hero-highlights">
+          <div class="pill">Sensing: camera + onboard sensors</div>
+          <div class="pill">Planning: path + behavior</div>
+          <div class="pill">Actuation: motors + control</div>
+          <div class="pill">CV: HSV color tracking</div>
+          <div class="pill">Meta Quest: mixed reality interface</div>
+        </div>
+      </div>
+
+      <aside class="hero-visual">
+        <div class="hero-visual-title">System Data Flow</div>
+        <p class="chip-label">
+          High-level pipeline from sensor input to VR feedback.
+        </p>
+        <div class="hero-diagram">
+          <div class="hero-diagram-row">
+            <span class="chip">Camera &amp; Sensors</span>
+            <span class="arrow">⟶</span>
+            <span class="chip">Perception &amp; Color Detection</span>
+          </div>
+          <div class="hero-diagram-row">
+            <span class="arrow">⟶</span>
+            <span class="chip">Planning (Path / State Machine)</span>
+          </div>
+          <div class="hero-diagram-row">
+            <span class="arrow">⟶</span>
+            <span class="chip">Motor Commands &amp; Actuation</span>
+          </div>
+          <div class="hero-diagram-row">
+            <span class="arrow">⟶</span>
+            <span class="chip">Telemetry &amp; Pose Stream</span>
+          </div>
+          <div class="hero-diagram-row">
+            <span class="arrow">⟶</span>
+            <span class="chip">Meta Quest Visualization</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SENSING -->
+    <section id="sensing">
+      <h2>Sensing</h2>
+      <div class="section-subtitle">
+        How the robot perceives the world: onboard sensors, camera input, and state estimation.
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Sensor Suite</h3>
+          <p>
+            The robot uses a combination of sensors to measure its environment and internal state.
+            Replace this text with the specific hardware used in your project.
+          </p>
+          <ul class="meta-list">
+            <li>RGB camera for color-based object detection</li>
+            <li>Optional: IMU for orientation and acceleration</li>
+            <li>Optional: Range sensor (LiDAR, ultrasonic, or IR) for obstacle distance</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Sampling &amp; Filtering</h3>
+          <p>
+            Sensor readings are sampled at a fixed rate and optionally filtered to reduce noise.
+          </p>
+          <ul class="meta-list">
+            <li>Typical sampling rate: <strong>[fill in Hz]</strong></li>
+            <li>Low-pass or moving average filter on distance measurements</li>
+            <li>IMU fusion for a stable heading estimate</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Robot State Representation</h3>
+          <p>
+            The sensing layer produces a compact robot state that is passed to the planner.
+          </p>
+          <ul class="meta-list">
+            <li>Position estimate: (x, y)</li>
+            <li>Heading: θ (from IMU or odometry)</li>
+            <li>Detected targets: color blobs, obstacles, waypoints</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- PLANNING -->
+    <section id="planning">
+      <h2>Planning</h2>
+      <div class="section-subtitle">
+        From perceived environment to motion: path planning, behavior logic, and goal selection.
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>High-Level Behavior</h3>
+          <p>
+            At the top level, the robot follows a finite state machine (FSM) to decide what to do:
+            search, approach, avoid, or idle.
+          </p>
+          <ul class="meta-list">
+            <li>States: SEARCH, TRACK_TARGET, AVOID_OBSTACLE, IDLE</li>
+            <li>Transitions triggered by color detections and distance thresholds</li>
+            <li>Failsafe timer to prevent getting stuck</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Path &amp; Motion Planning</h3>
+          <p>
+            Given a target location or direction, the planner computes velocity commands for the robot.
+          </p>
+          <ul class="meta-list">
+            <li>Simple proportional controller for heading and distance</li>
+            <li>Optional grid-based planner (e.g., A*) if a map is available</li>
+            <li>Local obstacle avoidance using sensor readings</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Command Interface</h3>
+          <p>
+            The planner outputs desired linear and angular velocities that are converted to motor commands.
+          </p>
+          <ul class="meta-list">
+            <li>Command format: <code>[v_linear, ω_angular]</code></li>
+            <li>Control loop frequency: <strong>[fill in Hz]</strong></li>
+            <li>Safety: velocity limiting and emergency stop conditions</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACTUATION -->
+    <section id="actuation">
+      <h2>Actuation</h2>
+      <div class="section-subtitle">
+        How high-level commands become physical motion: motors, controllers, and low-level drivers.
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Hardware</h3>
+          <p>
+            The robot uses a differential drive base (left and right wheel) controlled by a motor driver.
+          </p>
+          <ul class="meta-list">
+            <li>Motors: <strong>[DC / stepper / servo]</strong></li>
+            <li>Motor driver: <strong>[H-bridge, ESC, etc.]</strong></li>
+            <li>Power source: <strong>[battery type &amp; capacity]</strong></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Control Strategy</h3>
+          <p>
+            Velocity commands from the planner are converted into wheel speeds using differential drive kinematics.
+          </p>
+          <ul class="meta-list">
+            <li><code>v_left = v - (ω * L / 2)</code></li>
+            <li><code>v_right = v + (ω * L / 2)</code></li>
+            <li>Optional PID controllers for each wheel</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Feedback &amp; Safety</h3>
+          <p>
+            Encoder feedback (if available) is used to close the loop and detect stalls or slippage.
+          </p>
+          <ul class="meta-list">
+            <li>Encoder counts converted to wheel speed</li>
+            <li>Emergency stop if obstacle is too close</li>
+            <li>Safe shutdown when battery is low</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- CV COLOR DETECTION -->
+    <section id="cv">
+      <h2>Computer Vision: Color Detection</h2>
+      <div class="section-subtitle">
+        Detecting and tracking colored objects using an RGB camera and HSV thresholding.
+      </div>
+      <div class="layout-two-column">
+        <article class="card">
+          <h3>Pipeline Overview</h3>
+          <p>
+            The computer vision pipeline processes each camera frame to locate regions of a specific color
+            (e.g., red ball, green marker).
+          </p>
+          <ol class="meta-list" style="margin-top: 0.5rem;">
+            <li>Capture frame from camera</li>
+            <li>Convert from BGR/RGB to HSV color space</li>
+            <li>Apply <code>inRange()</code> with tuned lower/upper HSV bounds</li>
+            <li>Apply morphological operations (erode/dilate) to clean the mask</li>
+            <li>Find contours and select the largest one</li>
+            <li>Compute centroid and area as a target observation</li>
+          </ol>
+          <div class="callout">
+            <strong>Note:</strong> In HSV, hue represents color, saturation represents color intensity, and value
+            represents brightness. Tuning these ranges makes the detector robust to lighting changes.
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Example OpenCV Snippet</h3>
+          <p>Representative Python code for color detection using OpenCV:</p>
+          <code>
+            # Convert BGR to HSV<br />
+            hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)<br />
+            lower = np.array([H_low, S_low, V_low])<br />
+            upper = np.array([H_high, S_high, V_high])<br />
+            mask = cv2.inRange(hsv, lower, upper)<br />
+            mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)<br />
+            contours, _ = cv2.findContours(mask, ...)<br />
+          </code>
+          <p style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--text-muted);">
+            The resulting centroid is passed to the planner as a relative target direction
+            (e.g., pixels from image center mapped to steering angle).
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- META QUEST INTEGRATION -->
+    <section id="meta-quest">
+      <h2>Meta Quest Integration</h2>
+      <div class="section-subtitle">
+        Using a Meta Quest headset as an immersive interface for visualization and control.
+      </div>
+      <div class="layout-two-column">
+        <article class="card">
+          <h3>System Architecture</h3>
+          <p>
+            The robot streams telemetry and camera data to a host application, which then forwards it to the
+            Meta Quest headset (e.g., via Unity or a WebXR/WebSocket stack).
+          </p>
+          <ul class="meta-list">
+            <li>Robot &rarr; Host: ROS topic / custom TCP/UDP / WebSocket</li>
+            <li>Host &rarr; Quest: Unity Networking, WebRTC, or local server</li>
+            <li>Data sent: pose, velocity, detected targets, optional video stream</li>
+          </ul>
+          <div class="callout">
+            <strong>Visualization:</strong> Inside the headset, the robot is rendered in a 3D scene, along with
+            obstacles, target markers, and its planned trajectory.
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Interaction Design</h3>
+          <p>
+            The Meta Quest can be used for both monitoring and limited control.
+          </p>
+          <ul class="meta-list">
+            <li>Toggle autonomous / manual mode from the VR UI</li>
+            <li>Spawn virtual waypoints that become navigation goals</li>
+            <li>Highlight detected colored objects in the 3D overlay</li>
+            <li>Display debug info: latency, frame rate, battery, state</li>
+          </ul>
+          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+            Here you can add screenshots or GIFs of your VR interface if you have them.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      Robotics Final Project • Replace this text with your course code, semester, and team members.
+    </div>
+  </footer>
+</body>
+</html>
